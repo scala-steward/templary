@@ -2,7 +2,7 @@ import Dependencies._
 
 ThisBuild / scalaVersion     := "2.13.7"
 ThisBuild / version          := "0.0.1"
-ThisBuild / organization     := "dev.lapsus"
+ThisBuild / organization     := "com.lapsus"
 ThisBuild / organizationName := "Lapsus"
 
 ThisBuild / evictionErrorLevel := Level.Warn
@@ -53,7 +53,7 @@ lazy val core = (project in file("modules/core"))
     resolvers += Resolver.sonatypeRepo("snapshots"),
     Defaults.itSettings,
     scalafixCommonSettings,
-    dockerBaseImage := "openjdk:11-jre-slim-buster",
+    dockerBaseImage := "openjdk:17-jre-slim-buster",
     dockerExposedPorts ++= Seq(8080),
     makeBatScripts     := Seq(),
     dockerUpdateLatest := true,
@@ -96,3 +96,4 @@ lazy val core = (project in file("modules/core"))
   )
 
 addCommandAlias("runLinter", ";scalafixAll --rules OrganizeImports")
+addCommandAlias("build", "clean; runLinter; compile; test;")
