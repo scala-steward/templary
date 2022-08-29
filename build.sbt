@@ -1,56 +1,33 @@
 import Dependencies._
 
-ThisBuild / scalaVersion     := "2.13.7"
-ThisBuild / version          := "0.0.1"
-ThisBuild / organization     := "com.lapsus"
-ThisBuild / organizationName := "Lapsus"
-
-ThisBuild / evictionErrorLevel := Level.Warn
+ThisBuild / scalaVersion                        := "2.13.7"
+ThisBuild / version                             := "0.0.1"
+ThisBuild / organization                        := "com.lapsus"
+ThisBuild / organizationName                    := "Lapsus"
+ThisBuild / evictionErrorLevel                  := Level.Warn
+ThisBuild / githubWorkflowJavaVersions          := Seq(JavaSpec.temurin("17"))
+ThisBuild / versionScheme                       := Some("early-semver")
+ThisBuild / githubWorkflowPublishTargetBranches := Seq()
 ThisBuild / scalafixDependencies += Libraries.organizeImports
 
-resolvers += Resolver.sonatypeRepo("snapshots")
+resolvers ++= Resolver.sonatypeOssRepos("snapshots")
 
-val projectName = "lapsus-template"
+val pName = "template"
 
 val scalafixCommonSettings = inConfig(IntegrationTest)(scalafixConfigSettings(IntegrationTest))
-lazy val root = (project in file("."))
-  .settings(
-    name := projectName
-  )
-  .aggregate(core, tests)
 
-lazy val tests = (project in file("modules/tests"))
+lazy val root = project
+  .in(file(pName))
   .configs(IntegrationTest)
-  .settings(
-    name := s"${projectName}-test-suite",
-    scalacOptions ++= List("-Ymacro-annotations", "-Yrangepos", "-Wconf:cat=unused:info"),
-    testFrameworks += new TestFramework("weaver.framework.CatsEffect"),
-    Defaults.itSettings,
-    scalafixCommonSettings,
-    libraryDependencies ++= Seq(
-      CompilerPlugin.kindProjector,
-      CompilerPlugin.betterMonadicFor,
-      CompilerPlugin.semanticDB,
-      Libraries.catsLaws,
-      Libraries.log4catsNoOp,
-      Libraries.monocleLaw,
-      Libraries.refinedScalacheck,
-      Libraries.weaverCats,
-      Libraries.weaverDiscipline,
-      Libraries.weaverScalaCheck
-    )
-  )
-  .dependsOn(core)
-
-lazy val core = (project in file("modules/core"))
   .enablePlugins(DockerPlugin)
   .enablePlugins(AshScriptPlugin)
   .settings(
-    name                 := s"${projectName}-core",
-    Docker / packageName := projectName,
-    scalacOptions ++= List("-Ymacro-annotations", "-Yrangepos", "-Wconf:cat=unused:info"),
-    scalafmtOnCompile := true,
-    resolvers += Resolver.sonatypeRepo("snapshots"),
+    testFrameworks += new TestFramework("weaver.framework.CatsEffect"),
+    name                 := pName,
+    Docker / packageName := pName,
+    scalafmtOnCompile    := true,
+    scalacOptions ++= List("-Xsource:3", "-Ymacro-annotations", "-Yrangepos", "-Wconf:cat=unused:info"),
+    resolvers ++= Resolver.sonatypeOssRepos("snapshots"),
     Defaults.itSettings,
     scalafixCommonSettings,
     dockerBaseImage := "openjdk:17-jre-slim-buster",
@@ -91,8 +68,20 @@ lazy val core = (project in file("modules/core"))
       Libraries.refinedCats,
       Libraries.skunkCore,
       Libraries.skunkCirce,
-      Libraries.squants
-    )
+      Libraries.squants,
+
+      // Testing
+      CompilerPlugin.kindProjector,
+      CompilerPlugin.betterMonadicFor,
+      CompilerPlugin.semanticDB,
+      Libraries.catsLaws,
+      Libraries.log4catsNoOp,
+      Libraries.monocleLaw,
+      Libraries.refinedScalacheck,
+      Libraries.weaverCats,
+      Libraries.weaverDiscipline,
+      Libraries.weaverScalaCheck,
+    ),
   )
 
 addCommandAlias("runLinter", ";scalafixAll --rules OrganizeImports")
