@@ -23,7 +23,7 @@ object Dependencies {
 
     val betterMonadicFor = "0.3.1"
     val kindProjector    = "0.13.2"
-    val logback          = "1.2.11"
+    val logback          = "1.4.0"
     val organizeImports  = "0.6.0"
     val semanticDB       = "4.5.13"
 
@@ -95,15 +95,19 @@ object Dependencies {
   }
 
   object CompilerPlugin {
+
     val betterMonadicFor = compilerPlugin(
       "com.olegpy" %% "better-monadic-for" % V.betterMonadicFor
     )
+
     val kindProjector = compilerPlugin(
       "org.typelevel" % "kind-projector" % V.kindProjector cross CrossVersion.full
     )
+
     val semanticDB = compilerPlugin(
       "org.scalameta" % "semanticdb-scalac" % V.semanticDB cross CrossVersion.full
     )
+
   }
 
 }
