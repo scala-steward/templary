@@ -16,8 +16,7 @@ val pName = "template"
 
 val scalafixCommonSettings = inConfig(IntegrationTest)(scalafixConfigSettings(IntegrationTest))
 
-lazy val root = project
-  .in(file(pName))
+lazy val root = (project in file(pName))
   .configs(IntegrationTest)
   .enablePlugins(DockerPlugin)
   .enablePlugins(AshScriptPlugin)
