@@ -84,5 +84,5 @@ lazy val root = project
     ),
   )
 
-addCommandAlias("runLinter", "scalafmtAll;scalafixAll --rules OrganizeImports")
-addCommandAlias("build", "clean; runLinter; compile; test;")
+addCommandAlias("lint", "scalafmtAll;scalafixAll --rules OrganizeImports; scalafmtSbt")
+addCommandAlias("build", "clean; all scalafmtCheck scalafmtSbtCheck compile test githubWorkflowCheck")
