@@ -7,7 +7,7 @@ object Dependencies {
     val catsEffect    = "3.3.3"
     val catsRetry     = "3.1.0"
     val circe         = "0.14.4"
-    val ciris         = "3.0.0"
+    val ciris         = "3.1.0"
     val derevo        = "0.13.0"
     val javaxCrypto   = "1.0.1"
     val http4s        = "0.23.18"
@@ -25,7 +25,7 @@ object Dependencies {
     val kindProjector    = "0.13.2"
     val logback          = "1.4.5"
     val organizeImports  = "0.6.0"
-    val semanticDB       = "4.7.3"
+    val semanticDB       = "4.7.4"
 
     val weaver = "0.8.1"
   }
