@@ -1,1 +1,2 @@
-final case class MainSpec()
+final case class MainSpec(
+)

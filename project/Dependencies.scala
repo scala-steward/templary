@@ -31,10 +31,22 @@ object Dependencies {
   }
 
   object Libraries {
-    def circe(artifact: String): ModuleID  = "io.circe"   %% s"circe-$artifact"  % V.circe
-    def ciris(artifact: String): ModuleID  = "is.cir"     %% artifact            % V.ciris
-    def derevo(artifact: String): ModuleID = "tf.tofu"    %% s"derevo-$artifact" % V.derevo
-    def http4s(artifact: String): ModuleID = "org.http4s" %% s"http4s-$artifact" % V.http4s
+
+    def circe(
+      artifact: String
+    ): ModuleID = "io.circe" %% s"circe-$artifact" % V.circe
+
+    def ciris(
+      artifact: String
+    ): ModuleID = "is.cir" %% artifact % V.ciris
+
+    def derevo(
+      artifact: String
+    ): ModuleID = "tf.tofu" %% s"derevo-$artifact" % V.derevo
+
+    def http4s(
+      artifact: String
+    ): ModuleID = "org.http4s" %% s"http4s-$artifact" % V.http4s
 
     val cats       = "org.typelevel"    %% "cats-core"   % V.cats
     val catsEffect = "org.typelevel"    %% "cats-effect" % V.catsEffect
