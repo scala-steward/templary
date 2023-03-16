@@ -23,7 +23,7 @@ object Dependencies {
 
     val betterMonadicFor = "0.3.1"
     val kindProjector    = "0.13.2"
-    val logback          = "1.4.5"
+    val logback          = "1.4.6"
     val organizeImports  = "0.6.0"
     val semanticDB       = "4.7.5"
 
